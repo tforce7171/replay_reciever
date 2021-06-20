@@ -143,7 +143,7 @@ bot.command :morph_set_output do |event|
       WHERE channel_id=#{channel.id}
     ")
   end
-  channel_name_list = @conn.exe.("
+  channel_name_list = @conn.exec("
     SELECT channel_name
     FROM channel_data
     WHERE server_id=#{event.server.id}
