@@ -143,6 +143,7 @@ bot.command :morph_set_output do |event|
       SET output_channel_id=#{output_channel_id}
       WHERE channel_id=#{channel.id}
     ")
+    channel_names = channel_names + "\n" + channel.name
   end
   bot.send_message(output_channel_id,"以下のチャンネルのURL送信先をここに変更します。#{channel_names}")
   ResetChannelConst()
