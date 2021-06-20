@@ -136,14 +136,21 @@ bot.command :morph_set_output do |event|
     break
   end
   output_channel_id = event.message.channel.id
-  channel_names = ""
   event.server.channels.each do |channel|
     @conn.exec("
       UPDATE channel_data
       SET output_channel_id=#{output_channel_id}
       WHERE channel_id=#{channel.id}
     ")
-    channel_names = channel_names + "\n" + channel.name
+  end
+  channel_name_list = @conn.exe.("
+    SELECT channel_name
+    FROM channel_data
+    WHERE server_id=#{event.server.id}
+  ")
+  channel_names = ""
+  channel_name_list.each do |channel_name|
+    channel_names = channel_names + "\n" + channel_name
   end
   bot.send_message(output_channel_id,"以下のチャンネルのURL送信先をここに変更します。#{channel_names}")
   ResetChannelConst()
