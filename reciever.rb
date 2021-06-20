@@ -150,7 +150,7 @@ bot.command :morph_set_output do |event|
   ").to_a
   channel_names = ""
   channel_name_list.each do |channel_name|
-    channel_names = channel_names + "\n" + channel_name
+    channel_names = channel_names + "\n" + channel_name["channel_name"]
   end
   bot.send_message(output_channel_id,"以下のチャンネルのURL送信先をここに変更します。#{channel_names}")
   ResetChannelConst()
