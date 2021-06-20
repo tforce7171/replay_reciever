@@ -147,7 +147,7 @@ bot.command :morph_set_output do |event|
     SELECT channel_name
     FROM channel_data
     WHERE server_id=#{event.server.id}
-  ")
+  ").to_a
   channel_names = ""
   channel_name_list.each do |channel_name|
     channel_names = channel_names + "\n" + channel_name
