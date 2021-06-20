@@ -6,7 +6,6 @@ require 'dotenv'
 require 'date'
 require 'pg'
 require 'pg_array_parser'
-require_relative 'youtube_uploader'
 
 class MyPostgresParser
   include PgArrayParser
@@ -83,7 +82,7 @@ bot = Discordrb::Commands::CommandBot.new(
   client_id: ENV['CLIENT_ID'],
   prefix: '!'
 )
-plhandler = YoutubePlaylistHandler.new()
+# plhandler = YoutubePlaylistHandler.new()
 @conn = DBConnect()
 
 bot.ready do
