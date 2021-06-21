@@ -26,8 +26,8 @@ def UpdateReplayData(file,event)
     end
   end
   @conn.exec("
-    INSERT INTO replay_data (time_unix, file_url, channel_id, visibility, title, output_channel_id, playlist)
-    VALUES (#{Time.now.to_i},'#{file.url}',#{channel_id},'#{visibility}','#{title}',#{output_channel_id},'#{playlist}')
+    INSERT INTO replay_data (file_name, time_unix, file_url, channel_id, visibility, title, output_channel_id, playlist)
+    VALUES ('#{file.filename]}', #{Time.now.to_i},'#{file.url}',#{channel_id},'#{visibility}','#{title}',#{output_channel_id},'#{playlist}')
   ")
 end
 
