@@ -1,1 +1,1 @@
-bot: ruby reciever.rb
+discordbot: ruby bot.rb
