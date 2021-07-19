@@ -24,6 +24,7 @@ GEM
     opus-ruby (1.0.1)
       ffi
     pg (1.2.3-x64-mingw32)
+    pg_array_parser (0.0.9)
     rest-client (2.1.0-x64-mingw32)
       ffi (~> 1.9)
       http-accept (>= 1.7.0, < 2.0)
@@ -45,6 +46,7 @@ DEPENDENCIES
   discordrb
   httpclient
   pg
+  pg_array_parser
 
 BUNDLED WITH
    2.1.4

@@ -8,4 +8,4 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gem 'httpclient'
 gem 'discordrb'
 gem 'pg'
-# gem 'pg_array_parser'
+gem 'pg_array_parser'
