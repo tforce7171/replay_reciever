@@ -1,7 +1,6 @@
 require 'discordrb'
 require 'open-uri'
 require 'json'
-require 'dotenv'
 require 'date'
 require 'base64'
 require 'httpclient'
@@ -114,7 +113,6 @@ def UpdateInWatchReplays(replay_data)
   @conn.exec("DELETE FROM in_watch_replay WHERE replay_name='#{replay_data["replay_name"]}'")
 end
 
-Dotenv.load('secret.env')
 bot = Discordrb::Commands::CommandBot.new(
   token: ENV['TOKEN'],
   client_id: ENV['CLIENT_ID'],
