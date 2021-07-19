@@ -46,8 +46,8 @@ def UpdateReplayData(file,event)
   client = HTTPClient.new
   client.post("https://replayrecieverapi.herokuapp.com/api/replay_data", JSON.generate(data))
   @conn.exec("
-    INSERT INTO in_watch_replays (filename, time_unix, channel_id, visibility, title, output_channel_id, playlist, options)
-    VALUES ('#{file.filename}', #{Time.now.to_i}, #{channel_id},'#{visibility}','#{title}',#{output_channel_id},'#{playlist}', ARRAY#{options})
+    INSERT INTO in_watch_replays (replay_name, unix_time, visibility, title, output_channel_id, playlist, options)
+    VALUES ('#{file.filename}', #{Time.now.to_i}, '#{visibility}', '#{title}',#{output_channel_id},'#{playlist}', ARRAY#{options})
   ")
 end
 
