@@ -12,6 +12,7 @@ class MyPostgresParser
 end
 
 def UpdateReplayData(file,event)
+  parser = MyPostgresParser.new
   channel_id = event.message.channel.id
   title = event.message.content
   visibility = ""
