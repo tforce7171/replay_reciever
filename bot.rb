@@ -43,11 +43,16 @@ def UpdateReplayData(file,event)
       "options" => options,
       "token" => "aaaa"
   }
+  options_in_sql = ""
+  options.each do |option|
+    options_in_sql << "'#{option}',"
+  end
+  options_in_sql.chop!
   client = HTTPClient.new
   client.post("https://replayrecieverapi.herokuapp.com/api/replay_data", JSON.generate(data))
   @conn.exec("
     INSERT INTO in_watch_replays (replay_name, unix_time, visibility, title, output_channel_id, playlist, options)
-    VALUES ('#{file.filename}', #{Time.now.to_i}, '#{visibility}', '#{title}',#{output_channel_id},'#{playlist}', ARRAY#{options})
+    VALUES ('#{file.filename}', #{Time.now.to_i}, '#{visibility}', '#{title}',#{output_channel_id},'#{playlist}', ARRAY[#{options_in_sql}])
   ")
 end
 
