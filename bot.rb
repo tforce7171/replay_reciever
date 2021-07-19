@@ -18,13 +18,12 @@ def UpdateReplayData(file,event)
   visibility = ""
   output_channel_id = 0
   playlist = ""
+  options = parser.parse_pg_array(channel_data["options"])
   @channel_data.each do |channel_data|
     if channel_data["channel_id"] == channel_id
       visibility = channel_data["visibility"]
       output_channel_id = channel_data["output_channel_id"]
       playlist = channel_data["playlist"]
-      options = parser.parse_pg_array(channel_data["options"])
-      p options
       break
     end
   end
