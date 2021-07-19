@@ -4,6 +4,12 @@ require 'json'
 require 'date'
 require 'base64'
 require 'httpclient'
+require 'pg'
+# require 'pg_array_parser'
+
+# class MyPostgresParser
+#   include PgArrayParser
+# end
 
 def UpdateReplayData(file,event)
   channel_id = event.message.channel.id
@@ -42,7 +48,7 @@ def UpdateReplayData(file,event)
 end
 
 def ResetChannelConst()
-  parser = MyPostgresParser.new
+  # parser = MyPostgresParser.new
   result = @conn.exec("SELECT * FROM channel_data")
   channel_data = result.to_a
   channel_data.each_with_index do |data, i|
@@ -54,7 +60,8 @@ def ResetChannelConst()
   result = @conn.exec("SELECT * FROM admin_users")
   admin_user_data = result.to_a
   admin_user_data.each_with_index do |data, i|
-    admin_user_data[i]["authorized_servers"] = parser.parse_pg_array(data["authorized_servers"])
+    # admin_user_data[i]["authorized_servers"] = parser.parse_pg_array(data["authorized_servers"])
+    admin_user_data[i]["authorized_servers"] = data["authorized_servers"]
     admin_user_data[i]["authorized_servers"].map!(&:to_i)
   end
   @admin_user_data = admin_user_data
