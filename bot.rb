@@ -23,7 +23,7 @@ def UpdateReplayData(file,event)
       output_channel_id = channel_data["output_channel_id"]
       playlist = channel_data["playlist"]
       options = channel_data["options"]
-      print(options)
+      p options
       break
     end
   end
