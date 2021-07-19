@@ -227,7 +227,7 @@ bot.command :morph_set_yukkuri do |event|
   channel_id = event.message.channel.id.to_s
   @conn.exec("
     UPDATE channel_data
-    SET options='public'
+    SET options=ARRAY[yukkuri]
     WHERE channel_id=#{channel_id}
   ")
   bot.send_message(channel_id,"このチャンネルに送信されたリプレイはゆっくり音声と共にでアップロードされます。")
