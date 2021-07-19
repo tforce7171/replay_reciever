@@ -22,7 +22,7 @@ def UpdateReplayData(file,event)
       visibility = channel_data["visibility"]
       output_channel_id = channel_data["output_channel_id"]
       playlist = channel_data["playlist"]
-      options = channel_data["options"]
+      options = parser.parse_pg_array(channel_data["options"])
       p options
       break
     end
