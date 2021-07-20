@@ -176,20 +176,18 @@ bot.reaction_add() do |event|
       from_set_channel = true
     end
   end
-  print(event.methods())
-  print(event.message.attachments)
-  # if from_set_channel
-  #   p "message in #{event.server.name} / #{event.channel.name}"
-  #   if not event.message.attachments.empty?
-  #     p event.message.content
-  #     file = event.message.attachments[0]
-  #     if File.extname(file.filename) == ".wotbreplay"
-  #       channel_id = event.message.channel.id
-  #       UpdateReplayData(file,event)
-  #       event.message.create_reaction("☑️")
-  #     end
-  #   end
-  # end
+  if from_set_channel
+    p "message in #{event.server.name} / #{event.channel.name}"
+    if not event.message.attachments.empty?
+      p event.message.content
+      file = event.message.attachments[0]
+      if File.extname(file.filename) == ".wotbreplay"
+        channel_id = event.message.channel.id
+        UpdateReplayData(file,event)
+        event.message.create_reaction("☑️")
+      end
+    end
+  end
 end
 
 bot.command :morph_set_input do |event|
