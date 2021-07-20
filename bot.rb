@@ -169,6 +169,29 @@ bot.message() do |event|
   end
 end
 
+bot.reaction_add() do |event|
+  from_set_channel = false
+  @channel_data.each do |channel_data|
+    if channel_data["channel_id"] == event.message.channel.id
+      from_set_channel = true
+    end
+  end
+  print(event.methods())
+  print(event.message.attachments)
+  # if from_set_channel
+  #   p "message in #{event.server.name} / #{event.channel.name}"
+  #   if not event.message.attachments.empty?
+  #     p event.message.content
+  #     file = event.message.attachments[0]
+  #     if File.extname(file.filename) == ".wotbreplay"
+  #       channel_id = event.message.channel.id
+  #       UpdateReplayData(file,event)
+  #       event.message.create_reaction("☑️")
+  #     end
+  #   end
+  # end
+end
+
 bot.command :morph_set_input do |event|
   channel_id = event.message.channel.id.to_s
   channel_name = event.message.channel.name.to_s
