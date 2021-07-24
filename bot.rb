@@ -41,8 +41,10 @@ def UpdateReplayData(file,event)
   }
   client = HTTPClient.new
   client.post("https://databaseapi7171.herokuapp.com/api/replay_data", JSON.generate(data))
-  p yukkuri
-  @conn.exec("INSERT INTO in_watch_replays (replay_name, unix_time, visibility, title, output_channel_id, playlist, yukkuri) VALUES ('#{file.filename}', #{Time.now.to_i}, '#{visibility}', '#{title}',#{output_channel_id}, '#{playlist}', #{yukkuri})")
+  @conn.exec("
+    INSERT INTO in_watch_replays (replay_name, unix_time, visibility, title, output_channel_id, playlist, yukkuri)
+    VALUES ('#{file.filename}', #{Time.now.to_i}, '#{visibility}', '#{title}',#{output_channel_id}, '#{playlist}', #{yukkuri})
+  ")
 end
 
 def ResetChannelConst()
@@ -53,6 +55,11 @@ def ResetChannelConst()
     channel_data[i]["channel_id"] = data["channel_id"].to_i
     channel_data[i]["server_id"] = data["server_id"].to_i
     channel_data[i]["output_channel_id"] = data["output_channel_id"].to_i
+    if data["yukkuri"] == "f"
+      channel_data[i]["yukkuri"] = false
+    else
+      channel_data[i]["yukkuri"] = true
+    end
   end
   @channel_data = channel_data
   result = @conn.exec("SELECT * FROM admin_users")
