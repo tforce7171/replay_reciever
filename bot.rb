@@ -40,7 +40,7 @@ def UpdateReplayData(file,event)
       "token" => "aaaa"
   }
   client = HTTPClient.new
-  client.post("https://replayrecieverapi.herokuapp.com/api/replay_data", JSON.generate(data))
+  client.post("https://databaseapi7171.herokuapp.com/api/replay_data", JSON.generate(data))
   @conn.exec("
     INSERT INTO in_watch_replays (replay_name, unix_time, visibility, title, output_channel_id, playlist, yukkuri)
     VALUES ('#{file.filename}', #{Time.now.to_i}, '#{visibility}', '#{title}',#{output_channel_id},'#{playlist}', #{yukkuri})
@@ -95,7 +95,7 @@ end
 def CheckConvertionStatus()
   in_watch_replays = @conn.exec("SELECT * FROM in_watch_replays").to_a
   client = HTTPClient.new()
-  replay_data = JSON.parse(client.get("https://replayrecieverapi.herokuapp.com/api/replay_data").content)
+  replay_data = JSON.parse(client.get("https://databaseapi7171.herokuapp.com/api/replay_data").content)
   in_watch_replays.each do |in_watch_replay|
     replay_data.each do |_replay_data|
       if _replay_data["replay_name"] == in_watch_replay["replay_name"] || _replay_data["conversion_status"] == "completed"
