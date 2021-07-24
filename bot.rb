@@ -18,15 +18,13 @@ def UpdateReplayData(file,event)
   visibility = ""
   output_channel_id = 0
   playlist = ""
-  options = []
+  yukkuri = False
   @channel_data.each do |channel_data|
     if channel_data["channel_id"] == channel_id
       visibility = channel_data["visibility"]
       output_channel_id = channel_data["output_channel_id"]
       playlist = channel_data["playlist"]
-      parser.parse_pg_array(channel_data["options"]).each do |option|
-        options << option
-      end
+      yukkuri = channel_data["yukkuri"]
       break
     end
   end
@@ -34,25 +32,18 @@ def UpdateReplayData(file,event)
   data = {
       "replay_name" => file.filename,
       "replay_file_binary" => Base64.encode64(replay_file_binary),
-      "user_id" => 0,
-      "user_type" => "discord",
       "upload_to" => "youtube",
       "visibility" => visibility,
       "title" => title,
       "playlist" => playlist,
-      "options" => options,
+      "yukkuri" => yukkuri,
       "token" => "aaaa"
   }
-  options_in_sql = ""
-  options.each do |option|
-    options_in_sql << "'#{option}',"
-  end
-  options_in_sql.chop!
   client = HTTPClient.new
   client.post("https://replayrecieverapi.herokuapp.com/api/replay_data", JSON.generate(data))
   @conn.exec("
-    INSERT INTO in_watch_replays (replay_name, unix_time, visibility, title, output_channel_id, playlist, options)
-    VALUES ('#{file.filename}', #{Time.now.to_i}, '#{visibility}', '#{title}',#{output_channel_id},'#{playlist}', ARRAY[#{options_in_sql}])
+    INSERT INTO in_watch_replays (replay_name, unix_time, visibility, title, output_channel_id, playlist, yukkuri)
+    VALUES ('#{file.filename}', #{Time.now.to_i}, '#{visibility}', '#{title}',#{output_channel_id},'#{playlist}', #{yukkuri})
   ")
 end
 
@@ -257,7 +248,7 @@ bot.command :morph_set_yukkuri do |event|
   channel_id = event.message.channel.id.to_s
   @conn.exec("
     UPDATE channel_data
-    SET options=ARRAY['yukkuri']
+    SET yukkuri=True
     WHERE channel_id=#{channel_id}
   ")
   bot.send_message(channel_id,"このチャンネルに送信されたリプレイはゆっくり音声と共にでアップロードされます。")
