@@ -41,10 +41,8 @@ def UpdateReplayData(file,event)
   }
   client = HTTPClient.new
   client.post("https://databaseapi7171.herokuapp.com/api/replay_data", JSON.generate(data))
-  @conn.exec("
-    INSERT INTO in_watch_replays (replay_name, unix_time, visibility, title, output_channel_id, playlist, yukkuri)
-    VALUES ('#{file.filename}', #{Time.now.to_i}, '#{visibility}', '#{title}',#{output_channel_id},'#{playlist}', #{yukkuri})
-  ")
+  p yukkuri
+  @conn.exec("INSERT INTO in_watch_replays (replay_name, unix_time, visibility, title, output_channel_id, playlist, yukkuri) VALUES ('#{file.filename}', #{Time.now.to_i}, '#{visibility}', '#{title}',#{output_channel_id}, '#{playlist}', #{yukkuri})")
 end
 
 def ResetChannelConst()
