@@ -18,7 +18,7 @@ def UpdateReplayData(file,event)
   visibility = ""
   output_channel_id = 0
   playlist = ""
-  yukkuri = False
+  yukkuri = false
   @channel_data.each do |channel_data|
     if channel_data["channel_id"] == channel_id
       visibility = channel_data["visibility"]
