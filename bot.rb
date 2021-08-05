@@ -112,11 +112,11 @@ def CheckConvertionStatus()
   return false
 end
 
-def Notify(replay_data)
+def Notify(replay_data, bot)
   if replay_data["visibility"] == "public"
-    @bot.send_message(replay_data["output_channel_id"],"公開設定です\n@here\n#{replay_data["youtube_url"]}")
+    bot.send_message(replay_data["output_channel_id"],"公開設定です\n@here\n#{replay_data["youtube_url"]}")
   else
-    @bot.send_message(replay_data["output_channel_id"],"限定公開設定です\n#{replay_data["youtube_url"]}")
+    bot.send_message(replay_data["output_channel_id"],"限定公開設定です\n#{replay_data["youtube_url"]}")
   end
 end
 
@@ -140,7 +140,7 @@ bot.heartbeat do
   result = CheckConvertionStatus()
   p result
   if result != false
-    Notify(result)
+    Notify(result, bot)
     UpdateInWatchReplays(result)
   end
 end
