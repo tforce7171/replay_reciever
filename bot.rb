@@ -114,14 +114,14 @@ end
 
 def Notify(replay_data, bot)
   if replay_data["visibility"] == "public"
-    bot.send_message(replay_data["output_channel_id"],"公開設定です\n@here\n#{replay_data["youtube_url"]}")
+    bot.send_message(replay_data["output_channel_id"],"公開設定です\n@here\nhttps://youtu.be/#{replay_data["video_id"]}")
   else
-    bot.send_message(replay_data["output_channel_id"],"限定公開設定です\n#{replay_data["youtube_url"]}")
+    bot.send_message(replay_data["output_channel_id"],"限定公開設定です\nhttps://youtu.be/#{replay_data["video_id"]}")
   end
 end
 
 def UpdateInWatchReplays(replay_data)
-  @conn.exec("DELETE FROM in_watch_replay WHERE replay_name='#{replay_data["replay_name"]}'")
+  @conn.exec("DELETE FROM in_watch_replays WHERE replay_name='#{replay_data["replay_name"]}'")
 end
 
 bot = Discordrb::Commands::CommandBot.new(
