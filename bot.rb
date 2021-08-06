@@ -101,9 +101,11 @@ end
 def CheckConvertionStatus()
   in_watch_replays = @conn.exec("SELECT * FROM in_watch_replays").to_a
   client = HTTPClient.new()
-  replay_data = JSON.parse(client.get("https://databaseapi7171.herokuapp.com/api/replay_data").content)
+  body = {"conversion_status" => "completed"}
+  response = client.get("https://databaseapi7171.herokuapp.com/api/replay_data/filter_by", body)
+  completed_replay_data = JSON.parse(response.content)
   in_watch_replays.each do |in_watch_replay|
-    replay_data.each do |_replay_data|
+    completed_replay_data["data"].each do |_replay_data|
       if _replay_data["replay_name"] == in_watch_replay["replay_name"] && _replay_data["conversion_status"] == "completed"
         _replay_data["output_channel_id"] = in_watch_replay["output_channel_id"]
         return _replay_data
