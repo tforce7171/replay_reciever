@@ -138,8 +138,8 @@ end
 
 bot.heartbeat do
   result = CheckConvertionStatus()
-  p result
   if result != false
+    p result
     Notify(result, bot)
     UpdateInWatchReplays(result)
   end
