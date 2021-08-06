@@ -170,6 +170,9 @@ bot.message() do |event|
 end
 
 bot.reaction_add() do |event|
+  if not Authorised(event)
+    break
+  end
   from_set_channel = false
   @channel_data.each do |channel_data|
     if channel_data["channel_id"] == event.message.channel.id
