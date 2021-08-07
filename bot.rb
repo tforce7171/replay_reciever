@@ -127,7 +127,7 @@ def UpdateInWatchReplays(replay_data)
   @conn.exec("DELETE FROM in_watch_replays WHERE replay_name='#{replay_data["replay_name"]}'")
 end
 
-def UpdateBotGame()
+def UpdateBotGame(bot)
   client = HTTPClient.new()
   body = {"conversion_status" => "in queue"}
   response = client.get("https://databaseapi7171.herokuapp.com/api/replay_data/filter_by", body)
@@ -162,7 +162,7 @@ bot.heartbeat do
     Notify(result, bot)
     UpdateInWatchReplays(result)
   end
-  UpdateBotGame()
+  UpdateBotGame(bot)
 end
 
 bot.message() do |event|
