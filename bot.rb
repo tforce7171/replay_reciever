@@ -139,6 +139,7 @@ def UpdateBotGame(bot)
     processing = "Nothing"
   else
     processing = in_process_replay_data["data"][0]["replay_name"]
+  end
   game = "#{in_queue_replay_data["meta"]["count"]} replays in queue\nprocessing #{processing}"
   bot.game = game
 end
