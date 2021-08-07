@@ -127,6 +127,22 @@ def UpdateInWatchReplays(replay_data)
   @conn.exec("DELETE FROM in_watch_replays WHERE replay_name='#{replay_data["replay_name"]}'")
 end
 
+def UpdateBotGame()
+  client = HTTPClient.new()
+  body = {"conversion_status" => "in queue"}
+  response = client.get("https://databaseapi7171.herokuapp.com/api/replay_data/filter_by", body)
+  in_queue_replay_data = JSON.parse(response.content)
+  body = {"conversion_status" => "in process"}
+  response = client.get("https://databaseapi7171.herokuapp.com/api/replay_data/filter_by", body)
+  in_process_replay_data = JSON.parse(response.content)
+  if in_process_replay_data["meta"]["count"] == 0
+    processing = "Nothing"
+  else
+    processing = in_process_replay_data["data"][0]["replay_name"]
+  game = "#{in_queue_replay_data["meta"]["count"]} replays in queue\nprocessing #{processing}"
+  bot.game = game
+end
+
 bot = Discordrb::Commands::CommandBot.new(
   token: ENV['TOKEN'],
   client_id: ENV['CLIENT_ID'],
@@ -146,6 +162,7 @@ bot.heartbeat do
     Notify(result, bot)
     UpdateInWatchReplays(result)
   end
+  UpdateBotGame()
 end
 
 bot.message() do |event|
