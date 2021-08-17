@@ -89,13 +89,14 @@ end
 def Authorised(event)
   user_id = event.message.user.id
   server_id = event.message.channel.server.id
-  result = false
   @admin_user_data.each do |admin_user_data|
     if admin_user_data["user_id"] == user_id || admin_user_data["authorized_servers"].include?(server_id)
-      result = true
+      print("authorized")
+      return true
     end
   end
-  return result
+  print("not authorized")
+  return false
 end
 
 def CheckConvertionStatus()
