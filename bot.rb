@@ -158,6 +158,7 @@ bot.ready do
 end
 
 bot.heartbeat do
+  ResetChannelConst()
   result = CheckConvertionStatus()
   if result != false
     p result
