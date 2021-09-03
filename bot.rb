@@ -70,7 +70,6 @@ def ResetChannelConst()
     admin_user_data[i]["authorized_servers"].map!(&:to_i)
   end
   @admin_user_data = admin_user_data
-  p "constant set"
 end
 
 def DBConnect()
