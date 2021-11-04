@@ -32,7 +32,7 @@ def UpdateReplayData(file,event)
   data = {
       "replay_name" => file.filename,
       "replay_file_binary" => Base64.encode64(replay_file_binary),
-      "upload_to" => "youtube",
+      "upload_to" => "dailymotion",
       "visibility" => visibility,
       "title" => title,
       "playlist" => playlist,
@@ -117,9 +117,9 @@ end
 
 def Notify(replay_data, bot)
   if replay_data["visibility"] == "public"
-    bot.send_message(replay_data["output_channel_id"],"公開設定です\n@here\nhttps://youtu.be/#{replay_data["video_id"]}")
+    bot.send_message(replay_data["output_channel_id"],"公開設定です\n@here\nhttps://www.dailymotion.com/video/#{replay_data["video_id"]}")
   else
-    bot.send_message(replay_data["output_channel_id"],"限定公開設定です\nhttps://youtu.be/#{replay_data["video_id"]}")
+    bot.send_message(replay_data["output_channel_id"],"限定公開設定です\nhttps://www.dailymotion.com/video/#{replay_data["video_id"]}")
   end
 end
 
