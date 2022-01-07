@@ -135,7 +135,12 @@ def UpdateBotGame(bot)
   body = {"conversion_status" => "in process"}
   response = client.get("https://databaseapi7171.herokuapp.com/api/replay_data/filter_by", body)
   in_process_replay_data = JSON.parse(response.content)
-  if in_process_replay_data["meta"]["count"] == 0
+  body = {"conversion_status" => "in queue"}
+  response = client.get("https://databaseapi7171.herokuapp.com/api/replay_data/filter_by", body)
+  error_replay_data = JSON.parse(response.content)
+  if error_replay_data["meta"]["count"] != 0
+    processing = "Error"
+  elsif in_process_replay_data["meta"]["count"] == 0
     processing = "Nothing"
   else
     processing = in_process_replay_data["data"][0]["replay_name"]
